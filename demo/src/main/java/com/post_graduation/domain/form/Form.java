@@ -68,8 +68,7 @@ public class Form {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate submissionDate; // Data de submissão
 
-    @Column(precision = 4, scale = 2)
-    private BigDecimal advisorNote;
+    private String advisorNote;
 
     @Column(columnDefinition = "TEXT")
     private String ccpOpinion; // Parecer da comissão
