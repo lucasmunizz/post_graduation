@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -20,7 +21,7 @@ public class Form {
 
     private String studentName;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "advisor_id")
     private Advisor advisor_id;
 
@@ -61,4 +62,20 @@ public class Form {
     private String additionalComments;
 
     private String hasDifficulty;
+
+    private Integer version = 1; // Versão com valor padrão 1
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private LocalDate submissionDate; // Data de submissão
+
+    @Column(precision = 4, scale = 2)
+    private BigDecimal advisorNote;
+
+    @Column(columnDefinition = "TEXT")
+    private String ccpOpinion; // Parecer da comissão
+
+    @Column(length = 50)
+    private String statusEvaluation = "Em Revisão"; // Status com valor padrão
+
+
 }
