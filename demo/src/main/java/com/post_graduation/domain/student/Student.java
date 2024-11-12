@@ -45,7 +45,7 @@ public class Student {
 
     private String discipline;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "advisor_id")
     private Advisor advisor_id;
 
