@@ -32,10 +32,14 @@ async function fetchAndDisplayReports() {
         reports.forEach(report => {
             const row = document.createElement("tr");
 
+            console.log(report)
+
             row.innerHTML = `
                 <td>${report.studentName}</td>
                 <td>${report.uspNumber}</td>
                 <td>${report.version}</td>
+                <td>${report.advisorNote || N/A}</td>
+
             `;
 
             const actionCell = document.createElement("td");
@@ -44,7 +48,7 @@ async function fetchAndDisplayReports() {
             report.advisorNote === null ? evaluateButton.textContent = "Avaliar" : evaluateButton.textContent = "Avaliado" ;
             evaluateButton.disabled = report.advisorNote !== null;
             evaluateButton.addEventListener("click", () => {
-                window.location.href = `evaluate-report.html?formId=${report.id}`;
+                window.location.href = `./evaluate-reports/report-evaluation.html?formId=${report.formId}`;
             });
 
             actionCell.appendChild(evaluateButton);
