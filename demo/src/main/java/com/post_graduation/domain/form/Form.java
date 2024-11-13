@@ -37,6 +37,9 @@ public class Form {
 
     private String discipline;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private LocalDate entryDate;
+
     private String lastReportResult;
 
     private String approvalsFromTheBegginigOfTheCourse;
@@ -48,6 +51,9 @@ public class Form {
     private String proficiencyExam;
 
     private String qualifyingExam;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private LocalDate maximumRegistrationDeadline;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate deadlineDissertation;

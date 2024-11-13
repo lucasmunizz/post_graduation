@@ -24,6 +24,9 @@ public record FormRequestDTO(
 
  String discipline,
 
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+        LocalDate entryTime,
+
  String lastReportResult,
 
  String approvalsFromTheBegginigOfTheCourse,
@@ -35,6 +38,8 @@ public record FormRequestDTO(
  String proficiencyExam,
 
  String qualifyingExam,
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+LocalDate maximumRegistrationDeadline,
 
 @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
         LocalDate deadlineDissertation,

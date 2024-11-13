@@ -9,4 +9,6 @@ import java.util.UUID;
 public interface FormRepository extends JpaRepository<Form, UUID> {
 
     List<Form> findByAdvisor_id(UUID advisorId);
+
+    List<Form> findByStudent_id(UUID studentId);
 }

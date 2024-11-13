@@ -110,12 +110,14 @@ public class FormService {
                 form.getLattesLink(),
                 form.getLattesUpdateDate(),
                 form.getDiscipline(),
+                form.getEntryDate(),
                 form.getLastReportResult(),
                 form.getApprovalsFromTheBegginigOfTheCourse(),
                 form.getRepprovalsOnSecondSemester(),
                 form.getRepprovalsFromTheBegginigOfTheCourse(),
                 form.getProficiencyExam(),
                 form.getQualifyingExam(),
+                form.getMaximumRegistrationDeadline(),
                 form.getDeadlineDissertation(),
                 form.getArticlesWritingPhase(),
                 form.getArticlesInEvaluation(),
@@ -143,12 +145,14 @@ public class FormService {
                         form.getLattesLink(),
                         form.getLattesUpdateDate(),
                         form.getDiscipline(),
+                        form.getEntryDate(),
                         form.getLastReportResult(),
                         form.getApprovalsFromTheBegginigOfTheCourse(),
                         form.getRepprovalsOnSecondSemester(),
                         form.getRepprovalsFromTheBegginigOfTheCourse(),
                         form.getProficiencyExam(),
                         form.getQualifyingExam(),
+                        form.getMaximumRegistrationDeadline(),
                         form.getDeadlineDissertation(),
                         form.getArticlesWritingPhase(),
                         form.getArticlesInEvaluation(),
@@ -164,5 +168,46 @@ public class FormService {
                         form.getStatusEvaluation()
                 ))
                 .collect(Collectors.toList());
+
     }
+
+    public List<FormResponseDTO> findFormsByStudent(UUID studentId) {
+        List<Form> forms = formRepository.findByStudent_id(studentId);
+        return forms.stream()
+                .map(form -> new FormResponseDTO(
+                        form.getId(),
+                        form.getStudentEmail(),
+                        form.getStudentName(),
+                        form.getAdvisor().getEmail(),
+                        form.getUspNumber(),
+                        form.getLattesLink(),
+                        form.getLattesUpdateDate(),
+                        form.getDiscipline(),
+                        form.getEntryDate(),
+                        form.getLastReportResult(),
+                        form.getApprovalsFromTheBegginigOfTheCourse(),
+                        form.getRepprovalsOnSecondSemester(),
+                        form.getRepprovalsFromTheBegginigOfTheCourse(),
+                        form.getProficiencyExam(),
+                        form.getQualifyingExam(),
+                        form.getMaximumRegistrationDeadline(),
+                        form.getDeadlineDissertation(),
+                        form.getArticlesWritingPhase(),
+                        form.getArticlesInEvaluation(),
+                        form.getAcceptedArticles(),
+                        form.getActivities(),
+                        form.getResearchActivitiesResume(),
+                        form.getAdditionalComments(),
+                        form.getHasDifficulty(),
+                        form.getVersion(),
+                        form.getSubmissionDate(),
+                        form.getAdvisorNote(),
+                        form.getCcpOpinion(),
+                        form.getStatusEvaluation()
+                ))
+                .collect(Collectors.toList());
+
+    }
+
+
 }
