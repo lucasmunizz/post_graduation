@@ -45,6 +45,7 @@ public class FormService {
 
         // Cria uma nova instância de Form preenchendo os dados do DTO
         Form form = new Form();
+        form.setStudentEmail(dto.studentEmail());
         form.setStudentName(dto.studentName());
         form.setAdvisor(advisor);
         form.setUspNumber(dto.uspNumber());
@@ -93,11 +94,51 @@ public class FormService {
         return formRepository.save(form);
     }
 
+    public FormResponseDTO findFormById(UUID formId){
+
+        Form form = formRepository.findById(formId)
+                .orElseThrow(() -> new RuntimeException("Form not found"));
+
+
+
+        return new FormResponseDTO(
+                form.getId(),
+                form.getStudentEmail(),
+                form.getStudentName(),
+                form.getAdvisor().getEmail(),
+                form.getUspNumber(),
+                form.getLattesLink(),
+                form.getLattesUpdateDate(),
+                form.getDiscipline(),
+                form.getLastReportResult(),
+                form.getApprovalsFromTheBegginigOfTheCourse(),
+                form.getRepprovalsOnSecondSemester(),
+                form.getRepprovalsFromTheBegginigOfTheCourse(),
+                form.getProficiencyExam(),
+                form.getQualifyingExam(),
+                form.getDeadlineDissertation(),
+                form.getArticlesWritingPhase(),
+                form.getArticlesInEvaluation(),
+                form.getAcceptedArticles(),
+                form.getActivities(),
+                form.getResearchActivitiesResume(),
+                form.getAdditionalComments(),
+                form.getHasDifficulty(),
+                form.getVersion(),
+                form.getSubmissionDate(),
+                form.getAdvisorNote(),
+                form.getCcpOpinion(),
+                form.getStatusEvaluation());
+    }
+
     public List<FormResponseDTO> findFormsByAdvisor(UUID advisorId) {
         List<Form> forms = formRepository.findByAdvisor_id(advisorId);
         return forms.stream()
                 .map(form -> new FormResponseDTO(
+                        form.getId(),
+                        form.getStudentEmail(),
                         form.getStudentName(),
+                        form.getAdvisor().getEmail(),
                         form.getUspNumber(),
                         form.getLattesLink(),
                         form.getLattesUpdateDate(),

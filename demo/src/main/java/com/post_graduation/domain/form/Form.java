@@ -20,6 +20,8 @@ public class Form {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    private String studentEmail;
+
     private String studentName;
 
     @ManyToOne

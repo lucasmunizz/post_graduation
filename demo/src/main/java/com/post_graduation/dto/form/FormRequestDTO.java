@@ -10,6 +10,7 @@ import java.util.UUID;
 
 public record FormRequestDTO(
 
+        String studentEmail,
         String studentName,
 
  String advisorEmail,

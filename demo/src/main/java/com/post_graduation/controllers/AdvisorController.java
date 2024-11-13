@@ -33,7 +33,6 @@ public class AdvisorController {
 
     @GetMapping("/{id}")
     public ResponseEntity<AdvisorHomeResponseDTO> getAdvisor(@PathVariable UUID id){
-        System.out.println("Aqui");
         AdvisorHomeResponseDTO advisorHomeResponseDTO = this.service.getAdvisorById(id);
         return ResponseEntity.ok(advisorHomeResponseDTO);
     }
