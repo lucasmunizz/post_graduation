@@ -12,7 +12,7 @@ public record FormRequestDTO(
 
         String studentName,
 
- UUID advisor_id,
+ String advisorEmail,
 
  String uspNumber,
 

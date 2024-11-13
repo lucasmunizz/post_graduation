@@ -2,6 +2,7 @@ package com.post_graduation.domain.form;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.post_graduation.domain.advisor.Advisor;
+import com.post_graduation.domain.student.Student;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -75,6 +76,10 @@ public class Form {
 
     @Column(length = 50)
     private String statusEvaluation = "Em Revisão"; // Status com valor padrão
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 
 
 }

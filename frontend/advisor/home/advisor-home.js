@@ -20,8 +20,9 @@ function navigateToPeriods() {
     window.location.href = "managePeriods.html";
 }
 
+
 function navigateToReports() {
-    window.location.href = "manageReports.html";
+    window.location.href = "../reports/report-management.html";
 }
 
 

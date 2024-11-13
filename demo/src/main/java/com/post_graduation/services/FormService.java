@@ -36,8 +36,12 @@ public class FormService {
     @Transactional
     public Form create(FormRequestDTO dto) {
         // Busca o advisor pelo ID fornecido
-        Advisor advisor = advisorRepository.findById(dto.advisor_id())
+        Advisor advisor = advisorRepository.findByEmail(dto.advisorEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Advisor not found"));
+
+        Student student = studentRepository.findByUspNumber(dto.uspNumber())
+                .orElseThrow(() -> new IllegalArgumentException("Student not found"));
+
 
         // Cria uma nova instância de Form preenchendo os dados do DTO
         Form form = new Form();
@@ -62,6 +66,7 @@ public class FormService {
         form.setAdditionalComments(dto.additionalComments());
         form.setHasDifficulty(dto.hasDifficulty());
         form.setSubmissionDate(LocalDate.now());
+        form.setStudent(student);
 
         String message = "O aluno " + dto.studentName() + ", de número USP: " + dto.uspNumber() + " enviou um relatório para aprovação, acesse já o sistema.";
 

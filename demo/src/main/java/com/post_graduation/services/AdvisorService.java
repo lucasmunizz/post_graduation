@@ -67,7 +67,7 @@ public class AdvisorService {
     public AdvisorHomeResponseDTO getAdvisorById(UUID advisorId){
         Advisor advisor = this.repository.findById(advisorId).orElseThrow(() -> new RuntimeException("Advisor not found"));
 
-        AdvisorHomeResponseDTO advisorHomeResponseDTO = new AdvisorHomeResponseDTO(advisor.getFirstName() + advisor.getLastName(), advisor.getEmail());
+        AdvisorHomeResponseDTO advisorHomeResponseDTO = new AdvisorHomeResponseDTO(advisor.getFirstName() + " " + advisor.getLastName(), advisor.getEmail());
 
         System.out.println(advisorHomeResponseDTO.name());
 
