@@ -5,8 +5,11 @@ import com.post_graduation.dto.advisor.AdvisorHomeResponseDTO;
 import com.post_graduation.dto.advisor.AdvisorRequestDTO;
 import com.post_graduation.dto.advisor.AdvisorResponseDTO;
 import com.post_graduation.dto.form.FormResponseDTO;
+import com.post_graduation.dto.submission_period.SubmissionPeriodNewRequestDTO;
+import com.post_graduation.dto.submission_period.SubmissionPeriodNewResponseDTO;
 import com.post_graduation.services.AdvisorService;
 import com.post_graduation.services.FormService;
+import com.post_graduation.services.SubmissionPeriodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +28,9 @@ public class AdvisorController {
     @Autowired
     private FormService formService;
 
+    @Autowired
+    private SubmissionPeriodService submissionPeriodService;
+
     @GetMapping("/")
     public ResponseEntity<List<AdvisorResponseDTO>> findAll() {
         List<AdvisorResponseDTO> advisors = service.findAll();
@@ -40,6 +46,17 @@ public class AdvisorController {
     @GetMapping("/{id}/forms")
     public List<FormResponseDTO> findFormsByAdvisor(@PathVariable UUID id) {
         return formService.findFormsByAdvisor(id);
+    }
+
+    @PostMapping("/{id}/submission-period")
+    public ResponseEntity<Void> createSubmissionPeriod(@PathVariable UUID id, @RequestBody SubmissionPeriodNewRequestDTO dto) {
+         this.submissionPeriodService.createSubmissionPeriod(id, dto);
+         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/{id}/submission-period")
+    public List<SubmissionPeriodNewResponseDTO> findSubmissionPeriodsByAdvisor(@PathVariable UUID id) {
+        return submissionPeriodService.findSubmissionPeriodsByAdvisor(id);
     }
 
 }

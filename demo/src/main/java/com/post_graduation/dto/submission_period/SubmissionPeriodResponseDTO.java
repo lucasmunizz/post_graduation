@@ -20,7 +20,7 @@ public record SubmissionPeriodResponseDTO(
 
     public static SubmissionPeriodResponseDTO fromEntity(SubmissionPeriod submissionPeriod) {
         return new SubmissionPeriodResponseDTO(
-                submissionPeriod.getAdvisor_id() != null ? submissionPeriod.getAdvisor_id().getEmail() : null, // Obtenção do advisorEmail,
+                submissionPeriod.getAdvisor() != null ? submissionPeriod.getAdvisor().getEmail() : null, // Obtenção do advisorEmail,
                 submissionPeriod.getStartDate(),
                 submissionPeriod.getEndDate()
         );

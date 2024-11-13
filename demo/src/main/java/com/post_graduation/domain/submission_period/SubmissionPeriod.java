@@ -21,7 +21,7 @@ public class SubmissionPeriod {
 
     @ManyToOne
     @JoinColumn(name = "advisor_id", nullable = false)
-    private Advisor advisor_id;
+    private Advisor advisor;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate startDate;

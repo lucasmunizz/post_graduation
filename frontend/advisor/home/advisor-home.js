@@ -17,7 +17,7 @@ function logout() {
 }
 
 function navigateToPeriods() {
-    window.location.href = "managePeriods.html";
+    window.location.href = "../periods/submission-management.html";
 }
 
 
