@@ -5,9 +5,11 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.post_graduation.domain.advisor.Advisor;
 import com.post_graduation.domain.student.Student;
 import com.post_graduation.domain.subject.Subject;
+import com.post_graduation.dto.advisor.AdvisorHomeResponseDTO;
 import com.post_graduation.dto.auth.LoginRequestDTO;
 import com.post_graduation.dto.auth.LoginResponseDTO;
 import com.post_graduation.dto.student.LoginStudentRequestDTO;
+import com.post_graduation.dto.student.StudentHomeResponseDTO;
 import com.post_graduation.dto.student.StudentRequestDTO;
 import com.post_graduation.dto.student.StudentResponseDTO;
 import com.post_graduation.repositories.AdvisorRepository;
@@ -24,12 +26,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -156,6 +155,14 @@ public class StudentService {
         var AuthCandidateResponse = new LoginStudentRequestDTO(token, roles);
 
         return AuthCandidateResponse;
+    }
+
+    public StudentHomeResponseDTO getStudentById(UUID studentId){
+        Student student = this.repository.findById(studentId).orElseThrow(() -> new RuntimeException("Student not found"));
+
+        StudentHomeResponseDTO studentHomeResponseDTO = new StudentHomeResponseDTO(student.getFirstName() + " " + student.getLastName(), student.getEmail());
+
+        return studentHomeResponseDTO;
     }
 
 }

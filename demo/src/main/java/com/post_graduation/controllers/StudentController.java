@@ -1,7 +1,9 @@
 package com.post_graduation.controllers;
 
 import com.post_graduation.domain.student.Student;
+import com.post_graduation.dto.advisor.AdvisorHomeResponseDTO;
 import com.post_graduation.dto.form.FormResponseDTO;
+import com.post_graduation.dto.student.StudentHomeResponseDTO;
 import com.post_graduation.dto.student.StudentRequestDTO;
 import com.post_graduation.dto.student.StudentResponseDTO;
 import com.post_graduation.services.FormService;
@@ -29,6 +31,12 @@ public class StudentController {
     public ResponseEntity<List<StudentResponseDTO>> findAll() {
         List<StudentResponseDTO> students = studentService.findAllStudents();
         return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<StudentHomeResponseDTO> getStudent(@PathVariable UUID id){
+        StudentHomeResponseDTO studentHomeResponseDTO = this.studentService.getStudentById(id);
+        return ResponseEntity.ok(studentHomeResponseDTO);
     }
 
     @GetMapping("/{id}/forms")
