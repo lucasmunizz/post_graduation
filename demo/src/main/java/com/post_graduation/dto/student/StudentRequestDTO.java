@@ -30,6 +30,9 @@ public record StudentRequestDTO(
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
         LocalDate proficiencyExamDate,
 
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+        LocalDate deadlineDissertation,
+
         Set<UUID> approvedsSubjectIds,
         Set<UUID> repprovedSubjectIds
 

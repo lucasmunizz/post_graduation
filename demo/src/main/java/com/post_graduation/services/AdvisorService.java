@@ -3,6 +3,7 @@ package com.post_graduation.services;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.post_graduation.domain.advisor.Advisor;
+import com.post_graduation.dto.advisor.AdvisorHomeResponseDTO;
 import com.post_graduation.dto.advisor.AdvisorRequestDTO;
 import com.post_graduation.dto.advisor.AdvisorResponseDTO;
 import com.post_graduation.dto.advisor.LoginAdvisorResponseDTO;
@@ -20,6 +21,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,6 +62,16 @@ public class AdvisorService {
 
         return new LoginAdvisorResponseDTO(token, roles);
 
+    }
+
+    public AdvisorHomeResponseDTO getAdvisorById(UUID advisorId){
+        Advisor advisor = this.repository.findById(advisorId).orElseThrow(() -> new RuntimeException("Advisor not found"));
+
+        AdvisorHomeResponseDTO advisorHomeResponseDTO = new AdvisorHomeResponseDTO(advisor.getFirstName() + advisor.getLastName(), advisor.getEmail());
+
+        System.out.println(advisorHomeResponseDTO.name());
+
+        return advisorHomeResponseDTO;
     }
 
     public List<AdvisorResponseDTO> findAll() {

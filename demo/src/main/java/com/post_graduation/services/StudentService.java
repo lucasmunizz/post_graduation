@@ -88,6 +88,7 @@ public class StudentService {
         student.setQualifyingExamDate(studentDTO.qualifyingExamDate());
         student.setProficiencyExamDate(studentDTO.proficiencyExamDate());
         student.setAdvisor_id(advisor);
+        student.setDeadlineDissertation(studentDTO.deadlineDissertation());
 
         // Busca as matérias aprovadas e reprovadas com base nos IDs fornecidos
         Set<Subject> approvedSubjects = studentDTO.approvedsSubjectIds().stream()

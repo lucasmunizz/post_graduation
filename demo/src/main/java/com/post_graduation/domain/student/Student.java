@@ -60,6 +60,9 @@ public class Student {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate proficiencyExamDate;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    LocalDate deadlineDissertation;
+
     @ManyToMany
     @JoinTable(
             name = "student_approved_subjects",

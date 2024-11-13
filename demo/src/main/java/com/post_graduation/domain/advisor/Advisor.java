@@ -34,7 +34,7 @@ public class Advisor {
     @OneToMany(mappedBy = "advisor_id")
     private List<Student> students;
 
-    @OneToMany(mappedBy = "advisor_id")
+    @OneToMany(mappedBy = "advisor")
     private List<Form> reports;
 
 }

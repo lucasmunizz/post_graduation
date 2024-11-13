@@ -5,6 +5,7 @@ import com.post_graduation.domain.advisor.Advisor;
 import com.post_graduation.domain.student.Student;
 import com.post_graduation.dto.form.FormEvalDTO;
 import com.post_graduation.dto.form.FormRequestDTO;
+import com.post_graduation.dto.form.FormResponseDTO;
 import com.post_graduation.repositories.AdvisorRepository;
 import com.post_graduation.repositories.FormRepository;
 import com.post_graduation.repositories.StudentRepository;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class FormService {
@@ -39,7 +42,7 @@ public class FormService {
         // Cria uma nova instância de Form preenchendo os dados do DTO
         Form form = new Form();
         form.setStudentName(dto.studentName());
-        form.setAdvisor_id(advisor);
+        form.setAdvisor(advisor);
         form.setUspNumber(dto.uspNumber());
         form.setLattesLink(dto.lattesLink());
         form.setLattesUpdateDate(dto.lattesUpdateDate());
@@ -83,5 +86,37 @@ public class FormService {
         this.mailService.sendEmail(student.getEmail(), "Relatório avaliado", message);
 
         return formRepository.save(form);
+    }
+
+    public List<FormResponseDTO> findFormsByAdvisor(UUID advisorId) {
+        List<Form> forms = formRepository.findByAdvisor_id(advisorId);
+        return forms.stream()
+                .map(form -> new FormResponseDTO(
+                        form.getStudentName(),
+                        form.getUspNumber(),
+                        form.getLattesLink(),
+                        form.getLattesUpdateDate(),
+                        form.getDiscipline(),
+                        form.getLastReportResult(),
+                        form.getApprovalsFromTheBegginigOfTheCourse(),
+                        form.getRepprovalsOnSecondSemester(),
+                        form.getRepprovalsFromTheBegginigOfTheCourse(),
+                        form.getProficiencyExam(),
+                        form.getQualifyingExam(),
+                        form.getDeadlineDissertation(),
+                        form.getArticlesWritingPhase(),
+                        form.getArticlesInEvaluation(),
+                        form.getAcceptedArticles(),
+                        form.getActivities(),
+                        form.getResearchActivitiesResume(),
+                        form.getAdditionalComments(),
+                        form.getHasDifficulty(),
+                        form.getVersion(),
+                        form.getSubmissionDate(),
+                        form.getAdvisorNote(),
+                        form.getCcpOpinion(),
+                        form.getStatusEvaluation()
+                ))
+                .collect(Collectors.toList());
     }
 }

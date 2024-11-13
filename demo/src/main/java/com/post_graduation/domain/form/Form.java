@@ -23,7 +23,7 @@ public class Form {
 
     @ManyToOne
     @JoinColumn(name = "advisor_id")
-    private Advisor advisor_id;
+    private Advisor advisor;
 
     private String uspNumber;
 
