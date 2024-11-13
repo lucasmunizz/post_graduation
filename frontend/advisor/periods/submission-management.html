@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Períodos de Submissão</title>
+    <link rel="stylesheet" href="submission-management.css">
+</head>
+<body>
+    <button class="back-button" onclick="window.history.back();">← Voltar</button>
+    <div class="container">
+        <h1>Gerenciamento de Períodos de Submissão</h1>
+
+        <button id="createPeriodBtn" class="create-btn">Criar Novo Período</button>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Data de Início</th>
+                    <th>Data Final</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="periodTableBody">
+                <!-- Dados dos períodos serão inseridos aqui dinamicamente -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal para criar novo período -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <h2>Criar Novo Período de Submissão</h2>
+            <label for="startDate">Data de Início:</label>
+            <input type="date" id="startDate">
+            <label for="endDate">Data Final:</label>
+            <input type="date" id="endDate">
+            <button id="submitPeriodBtn" class="submit-btn">Enviar</button>
+        </div>
+    </div>
+
+    <script src="submission-management.js"></script>
+</body>
+</html>
