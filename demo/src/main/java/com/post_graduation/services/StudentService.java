@@ -1,16 +1,30 @@
 package com.post_graduation.services;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.post_graduation.domain.advisor.Advisor;
 import com.post_graduation.domain.student.Student;
 import com.post_graduation.domain.subject.Subject;
+import com.post_graduation.dto.auth.LoginRequestDTO;
+import com.post_graduation.dto.auth.LoginResponseDTO;
+import com.post_graduation.dto.student.LoginStudentRequestDTO;
 import com.post_graduation.dto.student.StudentRequestDTO;
 import com.post_graduation.dto.student.StudentResponseDTO;
 import com.post_graduation.repositories.AdvisorRepository;
 import com.post_graduation.repositories.StudentRepository;
 import com.post_graduation.repositories.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import javax.security.sasl.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +43,25 @@ public class StudentService {
 
     @Autowired
     private SubjectRepository subjectRepository;
-    public Student create(StudentRequestDTO studentDTO){
+
+    @Value("${api.security.token.secret}")
+    private String secretKey;
+
+    @Autowired
+    private PasswordEncoder encoder;
+
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    public LoginStudentRequestDTO create(StudentRequestDTO studentDTO){
+
+        Optional<Student> user = this.repository.findByEmail(studentDTO.email());
+
+        if (user.isPresent()){
+
+            throw new RuntimeException("Student already registered");
+
+        }
 
         this.repository.findByEmail(studentDTO.email())
                 .ifPresent(existingStudent -> {
@@ -45,7 +77,7 @@ public class StudentService {
         student.setFirstName(studentDTO.firstName());
         student.setLastName(studentDTO.lastName());
         student.setEmail(studentDTO.email());
-        student.setPassword(studentDTO.password());
+        student.setPassword(encoder.encode(studentDTO.password()));
         student.setBirthDate(studentDTO.birthDate());
         student.setRG(studentDTO.RG());
         student.setBirthSpot(studentDTO.birthSpot());
@@ -71,8 +103,23 @@ public class StudentService {
                 .map(Optional::get)
                 .collect(Collectors.toSet());
         student.setRepprovedSubjects(repprovedSubjects);
+        var roles = Arrays.asList("STUDENT");
 
-        return repository.save(student);
+
+        this.repository.save(student);
+
+        Algorithm algorithm = Algorithm.HMAC256(secretKey);
+        var expiresIn = Instant.now().plus(Duration.ofMinutes(120));
+        var token = JWT.create()
+                .withIssuer("javagas")
+                .withSubject(student.getId().toString())
+                .withClaim("roles", roles)
+                .withExpiresAt(expiresIn)
+                .sign(algorithm);
+
+
+        return new LoginStudentRequestDTO(token, roles);
+
     }
 
     public List<StudentResponseDTO> findAllStudents() {
@@ -80,4 +127,34 @@ public class StudentService {
                 .map(StudentResponseDTO::fromEntity)
                 .collect(Collectors.toList());
     }
+
+    public LoginStudentRequestDTO login(LoginRequestDTO loginRequestDTO) throws AuthenticationException{
+        var candidate = this.repository.findByEmail(loginRequestDTO.email())
+                .orElseThrow(() -> {
+                    throw new UsernameNotFoundException("Username/password incorrect");
+                });
+
+        var passwordMatches = this.passwordEncoder
+                .matches(loginRequestDTO.password(), candidate.getPassword());
+
+        if (!passwordMatches) {
+            throw new AuthenticationException();
+        }
+
+        var roles = Arrays.asList("STUDENT");
+
+        Algorithm algorithm = Algorithm.HMAC256(secretKey);
+        var expiresIn = Instant.now().plus(Duration.ofMinutes(10));
+        var token = JWT.create()
+                .withIssuer("javagas")
+                .withSubject(candidate.getId().toString())
+                .withClaim("roles", roles)
+                .withExpiresAt(expiresIn)
+                .sign(algorithm);
+
+        var AuthCandidateResponse = new LoginStudentRequestDTO(token, roles);
+
+        return AuthCandidateResponse;
+    }
+
 }

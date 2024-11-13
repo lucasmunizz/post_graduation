@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/advisors")
+@RequestMapping("/advisors")
 public class AdvisorController {
 
     @Autowired
@@ -22,11 +22,6 @@ public class AdvisorController {
     public ResponseEntity<List<AdvisorResponseDTO>> findAll() {
         List<AdvisorResponseDTO> advisors = service.findAll();
         return ResponseEntity.ok().body(advisors);
-    }
-    @PostMapping("/")
-    public ResponseEntity<Advisor> create(@RequestBody AdvisorRequestDTO body){
-        Advisor advisor = this.service.create(body);
-        return ResponseEntity.status(HttpStatus.CREATED).body(advisor);
     }
 
 }

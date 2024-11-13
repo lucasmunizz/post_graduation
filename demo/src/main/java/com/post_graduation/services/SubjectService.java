@@ -3,6 +3,7 @@ package com.post_graduation.services;
 import com.post_graduation.domain.subject.Subject;
 import com.post_graduation.dto.advisor.AdvisorResponseDTO;
 import com.post_graduation.dto.student.StudentResponseDTO;
+import com.post_graduation.dto.student.StudentSubjectDTO;
 import com.post_graduation.dto.subject.SubjectIdDTO;
 import com.post_graduation.dto.subject.SubjectRequestDTO;
 import com.post_graduation.dto.subject.SubjectResponseDTO;
@@ -26,32 +27,19 @@ public class SubjectService {
                         subject.getId(),
                         subject.getName(),
                         subject.getStudentsApproved().stream()
-                                .map(student -> new StudentResponseDTO(
+                                .map(student -> new StudentSubjectDTO(
                                         student.getId(),
-                                        student.getUspNumber(),
-                                        student.getFirstName(),
-                                        student.getLastName(),
                                         student.getEmail(),
-                                        student.getBirthDate(),
-                                        student.getBirthSpot(),
-                                        student.getNacionality(),
-                                        student.getDiscipline(),
-                                        student.getAdvisor_id().getEmail()
+                                        student.getUspNumber()
                                 ))
                                 .collect(Collectors.toList()),
 
                         subject.getStudentsRepproved().stream()
-                                .map(student -> new StudentResponseDTO(
+                                .map(student -> new StudentSubjectDTO(
                                         student.getId(),
-                                        student.getUspNumber(),
-                                        student.getFirstName(),
-                                        student.getLastName(),
                                         student.getEmail(),
-                                        student.getBirthDate(),
-                                        student.getBirthSpot(),
-                                        student.getNacionality(),
-                                        student.getDiscipline(),
-                                        student.getAdvisor_id().getEmail()
+                                        student.getUspNumber()
+
                                 ))
                                 .collect(Collectors.toList())
                 ))

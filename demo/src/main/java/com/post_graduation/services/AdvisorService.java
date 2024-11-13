@@ -1,13 +1,24 @@
 package com.post_graduation.services;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.post_graduation.domain.advisor.Advisor;
 import com.post_graduation.dto.advisor.AdvisorRequestDTO;
 import com.post_graduation.dto.advisor.AdvisorResponseDTO;
+import com.post_graduation.dto.advisor.LoginAdvisorResponseDTO;
+import com.post_graduation.dto.auth.LoginRequestDTO;
 import com.post_graduation.dto.student.StudentResponseDTO;
 import com.post_graduation.repositories.AdvisorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.security.sasl.AuthenticationException;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,7 +28,13 @@ public class AdvisorService {
     @Autowired
     private AdvisorRepository repository;
 
-    public Advisor create (AdvisorRequestDTO dto){
+    @Value("${api.security.token.secret}")
+    private String secretKey;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public LoginAdvisorResponseDTO create (AdvisorRequestDTO dto){
         this.repository.findByEmail(dto.email()).ifPresent(advisor -> {
             throw new RuntimeException("Orientador com email " + dto.email() + " já existe.");
         });
@@ -26,10 +43,23 @@ public class AdvisorService {
         advisor.setEmail(dto.email());
         advisor.setFirstName(dto.firstName());
         advisor.setLastName(dto.lastName());
-        advisor.setPassword(dto.password());
+        advisor.setPassword(passwordEncoder.encode(dto.password()));
 
         this.repository.save(advisor);
-        return advisor;
+
+        var roles = Arrays.asList("ADVISOR");
+
+        Algorithm algorithm = Algorithm.HMAC256(secretKey);
+        var expiresIn = Instant.now().plus(Duration.ofMinutes(10));
+        var token = JWT.create()
+                .withIssuer("javagas")
+                .withSubject(advisor.getId().toString())
+                .withClaim("roles", roles)
+                .withExpiresAt(expiresIn)
+                .sign(algorithm);
+
+        return new LoginAdvisorResponseDTO(token, roles);
+
     }
 
     public List<AdvisorResponseDTO> findAll() {
@@ -55,5 +85,34 @@ public class AdvisorService {
                                 .collect(Collectors.toList())
                 ))
                 .collect(Collectors.toList());
+    }
+
+    public LoginAdvisorResponseDTO login(LoginRequestDTO loginRequestDTO) throws AuthenticationException {
+        var advisor = this.repository.findByEmail(loginRequestDTO.email())
+                .orElseThrow(() -> {
+                    throw new UsernameNotFoundException("Username/password incorrect");
+                });
+
+        var passwordMatches = this.passwordEncoder
+                .matches(loginRequestDTO.password(), advisor.getPassword());
+
+        if (!passwordMatches) {
+            throw new AuthenticationException();
+        }
+
+        var roles = Arrays.asList("ADVISOR");
+
+        Algorithm algorithm = Algorithm.HMAC256(secretKey);
+        var expiresIn = Instant.now().plus(Duration.ofMinutes(120));
+        var token = JWT.create()
+                .withIssuer("javagas")
+                .withSubject(advisor.getId().toString())
+                .withClaim("roles", roles)
+                .withExpiresAt(expiresIn)
+                .sign(algorithm);
+
+        var AuthAdvisorResponse = new LoginAdvisorResponseDTO(token, roles);
+
+        return AuthAdvisorResponse;
     }
 }

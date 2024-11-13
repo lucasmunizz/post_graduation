@@ -13,7 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@RequestMapping("/subjects")
+@RequestMapping("/api/subjects")
 public class SubjectController {
 
     @Autowired
