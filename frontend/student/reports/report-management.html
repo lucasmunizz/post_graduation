@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Relatórios</title>
+    <link rel="stylesheet" href="report-management.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Gerenciamento de Relatórios</h1>
+        <button id="newReportButton">Enviar Novo Relatório</button>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Versão do Relatório</th>
+                    <th>Email do Orientador</th>
+                    <th>Data de Submissão</th>
+                    <th>Nota do Orientador</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="reportTableBody">
+                <!-- Linhas serão geradas dinamicamente -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="report-management.js"></script>
+</body>
+</html>

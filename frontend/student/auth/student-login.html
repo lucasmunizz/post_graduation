@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login do Estudante</title>
+    <link rel="stylesheet" href="../../form-styles.css">
+</head>
+<body>
+    <header>
+        <h1>Login do Estudante</h1>
+        <p>Insira suas credenciais para acessar o Sistema de Pós-Graduação.</p>
+    </header>
+
+    <main>
+        <form id="studentLoginForm">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required minlength="8" placeholder="Mínimo de 8 caracteres">
+
+            <button type="submit">Entrar</button>
+        </form>
+
+        <p id="statusMessage"></p>
+    </main>
+
+    <footer>
+        <p>© 2024 Sistema de Pós-Graduação. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.getElementById("studentLoginForm").addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (!email || password.length < 8) {
+                document.getElementById("statusMessage").textContent = "Preencha todos os campos corretamente.";
+                return;
+            }
+
+            const data = { email, password };
+            
+            try {
+                const response = await fetch("http://localhost:8080/students/auth/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    document.getElementById("statusMessage").textContent = "Login realizado com sucesso!";
+                    const responseData = await response.json();
+                    console.log("Token de autenticação:", responseData.accessToken);
+                    localStorage.setItem('token', responseData.accessToken);
+                    window.location.href='../home/student-home.html'
+                    // Redirecionar ou salvar o token para a sessão, conforme necessário.
+                } else {
+                    document.getElementById("statusMessage").textContent = "Credenciais inválidas. Tente novamente.";
+                }
+            } catch (error) {
+                console.error("Erro:", error);
+                document.getElementById("statusMessage").textContent = "Erro de conexão. Tente novamente mais tarde.";
+            }
+        });
+    </script>
+</body>
+</html>
