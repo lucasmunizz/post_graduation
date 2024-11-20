@@ -69,15 +69,64 @@ public class FormService {
         form.setHasDifficulty(dto.hasDifficulty());
         form.setSubmissionDate(LocalDate.now());
         form.setStudent(student);
-        form.setEntryDate(dto.entryTime());
+        form.setEntryDate(dto.entryDate());
         form.setMaximumRegistrationDeadline(dto.maximumRegistrationDeadline());
 
-        String message = "O aluno " + dto.studentName() + ", de número USP: " + dto.uspNumber() + " enviou um relatório para aprovação, acesse já o sistema.";
+        String message = "O aluno " + dto.studentName() + ", de número USP: " + dto.uspNumber() + " enviou um relatório para avaliação, acesse já o sistema.";
 
         this.mailService.sendEmail(advisor.getEmail(), "Relatório pendente de avaliação", message);
 
         // Salva a entidade Form no banco de dados
         return formRepository.save(form);
+    }
+
+    @Transactional
+    public void updateForm (UUID formId, FormRequestDTO dto) {
+        // Busca o advisor pelo ID fornecido
+        Advisor advisor = advisorRepository.findByEmail(dto.advisorEmail())
+                .orElseThrow(() -> new IllegalArgumentException("Advisor not found"));
+
+        Student student = studentRepository.findByUspNumber(dto.uspNumber())
+                .orElseThrow(() -> new IllegalArgumentException("Student not found"));
+
+        Form form = formRepository.findById(formId)
+                .orElseThrow(() -> new IllegalArgumentException("Form with ID " + formId + " not found."));
+
+
+        // Cria uma nova instância de Form preenchendo os dados do DTO
+        form.setStudentEmail(dto.studentEmail());
+        form.setStudentName(dto.studentName());
+        form.setAdvisor(advisor);
+        form.setUspNumber(dto.uspNumber());
+        form.setLattesLink(dto.lattesLink());
+        form.setLattesUpdateDate(dto.lattesUpdateDate());
+        form.setDiscipline(dto.discipline());
+        form.setLastReportResult(dto.lastReportResult());
+        form.setApprovalsFromTheBegginigOfTheCourse(dto.approvalsFromTheBegginigOfTheCourse());
+        form.setRepprovalsOnSecondSemester(dto.repprovalsOnSecondSemester());
+        form.setRepprovalsFromTheBegginigOfTheCourse(dto.repprovalsFromTheBegginigOfTheCourse());
+        form.setProficiencyExam(dto.proficiencyExam());
+        form.setQualifyingExam(dto.qualifyingExam());
+        form.setDeadlineDissertation(dto.deadlineDissertation());
+        form.setArticlesWritingPhase(dto.articlesWritingPhase());
+        form.setArticlesInEvaluation(dto.articlesInEvaluation());
+        form.setAcceptedArticles(dto.acceptedArticles());
+        form.setActivities(dto.activities());
+        form.setResearchActivitiesResume(dto.researchActivitiesResume());
+        form.setAdditionalComments(dto.additionalComments());
+        form.setHasDifficulty(dto.hasDifficulty());
+        form.setSubmissionDate(LocalDate.now());
+        form.setStudent(student);
+        form.setEntryDate(dto.entryDate());
+        form.setMaximumRegistrationDeadline(dto.maximumRegistrationDeadline());
+        form.setVersion(form.getVersion() + 1);
+
+        String message = "O aluno " + dto.studentName() + ", de número USP: " + dto.uspNumber() + " enviou novamente o relatório para reavaliação, acesse já o sistema.";
+
+        this.mailService.sendEmail(advisor.getEmail(), "Relatório pendente de reavaliação", message);
+
+        // Salva a entidade Form no banco de dados
+        this.formRepository.save(form);
     }
 
     public Form updateCcpOpinion(UUID formId, FormEvalCCPDTO dto) {

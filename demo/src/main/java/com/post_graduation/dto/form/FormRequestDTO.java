@@ -25,7 +25,7 @@ public record FormRequestDTO(
  String discipline,
 
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-        LocalDate entryTime,
+        LocalDate entryDate,
 
  String lastReportResult,
 

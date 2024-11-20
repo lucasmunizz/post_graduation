@@ -28,6 +28,16 @@ public class FormController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PutMapping("/{formId}")
+    public ResponseEntity<Object> updateForm(@PathVariable UUID formId, @RequestBody FormRequestDTO formRequest) {
+        try {
+            this.formService.updateForm(formId, formRequest);
+            return ResponseEntity.ok("Form updated successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
     @PutMapping("/{id}/advisor-note")
     public ResponseEntity<Void> updateAdvisorNote(@PathVariable UUID id, @RequestBody FormEvalDTO dto) {
         formService.updateAdvisorNote(id, dto);
