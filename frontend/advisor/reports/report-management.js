@@ -39,7 +39,6 @@ async function fetchAndDisplayReports() {
                 <td>${report.uspNumber}</td>
                 <td>${report.version}</td>
                 <td>${report.advisorNote || N/A}</td>
-
             `;
 
             const actionCell = document.createElement("td");
