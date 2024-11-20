@@ -160,7 +160,13 @@ public class StudentService {
     public StudentHomeResponseDTO getStudentById(UUID studentId){
         Student student = this.repository.findById(studentId).orElseThrow(() -> new RuntimeException("Student not found"));
 
-        StudentHomeResponseDTO studentHomeResponseDTO = new StudentHomeResponseDTO(student.getFirstName() + " " + student.getLastName(), student.getEmail());
+        StudentHomeResponseDTO studentHomeResponseDTO = new StudentHomeResponseDTO(student.getFirstName() + " " + student.getLastName(),
+                student.getEmail(),
+                student.getAdvisor_id().getEmail(),
+                student.getUspNumber(),
+                student.getDiscipline(),
+                student.getLattesLink(),
+                student.getDeadlineDissertation());
 
         return studentHomeResponseDTO;
     }
