@@ -31,6 +31,9 @@ public class SecurirtyConfig {
     SecurityStudentFilter securityStudentFilter;
 
     @Autowired
+    SecurityCCPFilter securityCCPFilter;
+
+    @Autowired
     CorsConfig corsConfig;
 
     @Bean
@@ -50,6 +53,7 @@ public class SecurirtyConfig {
                         .anyRequest().permitAll()
                 )
                 .cors(c -> c.configurationSource(corsConfig))
+                .addFilterBefore(securityCCPFilter, BasicAuthenticationFilter.class)
                 .addFilterBefore(securityStudentFilter, BasicAuthenticationFilter.class)
                 .addFilterBefore(securityAdvisorFilter, BasicAuthenticationFilter.class);
         return http.build();
