@@ -24,7 +24,7 @@ async function loadStudentData() {
 
         const student = await response.json();
 
-        document.getElementById("email").value = student.email;
+        document.getElementById("studentEmail").value = student.email;
         document.getElementById("studentName").value = student.name;
         document.getElementById("advisorEmail").value = student.advisorEmail;
         document.getElementById("uspNumber").value = student.uspNumber;
@@ -54,7 +54,10 @@ document.getElementById("reportForm").onsubmit = async function (event) {
     // Formatar datas
     data.lattesUpdateDate = formatDateToString(data.lattesUpdateDate);
     data.deadlineDissertation = formatDateToString(data.deadlineDissertation);
-    //data.entryDate = formatDateToString(data.entryDate);
+    data.entryDate = formatDateToString(data.entryDate);
+    data.maximumRegistrationDeadline = formatDateToString(data.maximumRegistrationDeadline);
+
+    console.log(data)
 
     try {
         const response = await fetch("http://localhost:8080/api/forms/", {
@@ -66,7 +69,7 @@ document.getElementById("reportForm").onsubmit = async function (event) {
             body: JSON.stringify(data)
         });
 
-        if (!response.ok) throw new Error("Erro ao enviar relatório.");
+         if (!response.ok) throw new Error("Erro ao enviar relatório.");
         alert("Relatório enviado com sucesso!");
         window.location.href = "../report-management.html";
     } catch (error) {

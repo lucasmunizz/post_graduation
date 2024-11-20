@@ -11,8 +11,8 @@
         <h1>Envio de Relatório</h1>
         <form id="reportForm">
             <div class="form-row">
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" readonly>
+                <label for="studentEmail">E-mail:</label>
+                <input type="email" id="studentEmail" name="studentEmail" readonly>
             </div>
             <div class="form-row">
                 <label for="studentName">Nome do(a) aluno(a):</label>
@@ -36,15 +36,15 @@
             </div>
             <div class="form-row">
                 <label for="discipline">Curso:</label>
-                <select id="discipline" name="discipline" disabled>
+                <select id="discipline" name="discipline" readonly>
                     <option value="Mestrado">Mestrado</option>
                     <option value="Doutorado">Doutorado</option>
                 </select>
             </div>
-            <!-- <div class="form-row">
+            <div class="form-row">
                 <label for="entryDate">Data de ingresso como aluno(a) regular:</label>
                 <input type="date" id="entryDate" name="entryDate" required>
-            </div> -->
+            </div>
             <div class="form-row">
                 <label for="lastReportResult">Qual foi o resultado da avaliação do último relatório?</label>
                 <select id="lastReportResult" name="lastReportResult" required>
@@ -55,8 +55,8 @@
                 </select>
             </div>
             <div class="form-row">
-                <label for="approvals">Aprovações em disciplinas desde o início do curso:</label>
-                <select id="approvals" name="approvals" required>
+                <label for="approvalsFromTheBegginigOfTheCourse">Aprovações em disciplinas desde o início do curso:</label>
+                <select id="approvalsFromTheBegginigOfTheCourse" name="approvalsFromTheBegginigOfTheCourse" required>
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -100,11 +100,11 @@
                     <option value="Não">Não</option>
                 </select>
             </div>
-            <!-- <div class="form-row">
+            <div class="form-row">
                 <label for="maximumRegistrationDeadline">Se você ainda não qualificou, qual é o seu prazo máximo para inscrição no
                     exame de qualificação?</label>
                 <input type="date" id="maximumRegistrationDeadline" name="maximumRegistrationDeadline">
-            </div> -->
+            </div>
             <div class="form-row">
                 <label for="deadlineDissertation">Qual é seu Prazo máximo para depósito da dissertação:</label>
                 <input type="date" id="deadlineDissertation" name="deadlineDissertation" required>
@@ -155,8 +155,8 @@
                 <label for="hasDifficulty">Está enfrentando alguma dificuldade que precisa de apoio da coordenação do
                     curso?</label>
                 <select id="hasDifficulty" name="hasDifficulty" required>
-                    <option value="0">Sim</option>
-                    <option value="1">Não</option>
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
                 </select>
             </div>
             <div class="form-row">

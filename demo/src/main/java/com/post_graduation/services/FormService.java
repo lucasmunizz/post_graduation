@@ -68,6 +68,8 @@ public class FormService {
         form.setHasDifficulty(dto.hasDifficulty());
         form.setSubmissionDate(LocalDate.now());
         form.setStudent(student);
+        form.setEntryDate(dto.entryTime());
+        form.setMaximumRegistrationDeadline(dto.maximumRegistrationDeadline());
 
         String message = "O aluno " + dto.studentName() + ", de número USP: " + dto.uspNumber() + " enviou um relatório para aprovação, acesse já o sistema.";
 
