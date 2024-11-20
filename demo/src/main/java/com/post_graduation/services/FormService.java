@@ -3,6 +3,7 @@ package com.post_graduation.services;
 import com.post_graduation.domain.form.Form;
 import com.post_graduation.domain.advisor.Advisor;
 import com.post_graduation.domain.student.Student;
+import com.post_graduation.dto.form.FormEvalCCPDTO;
 import com.post_graduation.dto.form.FormEvalDTO;
 import com.post_graduation.dto.form.FormRequestDTO;
 import com.post_graduation.dto.form.FormResponseDTO;
@@ -79,6 +80,23 @@ public class FormService {
         return formRepository.save(form);
     }
 
+    public Form updateCcpOpinion(UUID formId, FormEvalCCPDTO dto) {
+        Form form = formRepository.findById(formId)
+                .orElseThrow(() -> new RuntimeException("Form not found"));
+
+        form.setCcpOpinion(dto.ccpOpinion());
+
+        Student student = studentRepository.findByUspNumber(form.getUspNumber())
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+
+        String message = "Caro aluno(a) " + form.getStudentName() + ", seu relatório acaba de receber um parecer da Comissão de Pós Graduação:\n" + "Sua avaliação ficou como: " + dto.ccpOpinion() + "\nPara mais detalhes, acesse o sistema.";
+
+        this.mailService.sendEmail(student.getEmail(), "Relatório avaliado", message);
+
+        return formRepository.save(form);
+    }
+
     public Form updateAdvisorNote(UUID formId, FormEvalDTO dto) {
         Form form = formRepository.findById(formId)
                 .orElseThrow(() -> new RuntimeException("Form not found"));
@@ -133,6 +151,43 @@ public class FormService {
                 form.getAdvisorNote(),
                 form.getCcpOpinion(),
                 form.getStatusEvaluation());
+    }
+
+    public List<FormResponseDTO> findEvaluatedForms() {
+        List<Form> forms = formRepository.findByAdvisorNoteIsNotNull();
+        return forms.stream()
+                .map(form -> new FormResponseDTO(
+                        form.getId(),
+                        form.getStudentEmail(),
+                        form.getStudentName(),
+                        form.getAdvisor().getEmail(),
+                        form.getUspNumber(),
+                        form.getLattesLink(),
+                        form.getLattesUpdateDate(),
+                        form.getDiscipline(),
+                        form.getEntryDate(),
+                        form.getLastReportResult(),
+                        form.getApprovalsFromTheBegginigOfTheCourse(),
+                        form.getRepprovalsOnSecondSemester(),
+                        form.getRepprovalsFromTheBegginigOfTheCourse(),
+                        form.getProficiencyExam(),
+                        form.getQualifyingExam(),
+                        form.getMaximumRegistrationDeadline(),
+                        form.getDeadlineDissertation(),
+                        form.getArticlesWritingPhase(),
+                        form.getArticlesInEvaluation(),
+                        form.getAcceptedArticles(),
+                        form.getActivities(),
+                        form.getResearchActivitiesResume(),
+                        form.getAdditionalComments(),
+                        form.getHasDifficulty(),
+                        form.getVersion(),
+                        form.getSubmissionDate(),
+                        form.getAdvisorNote(),
+                        form.getCcpOpinion(),
+                        form.getStatusEvaluation()
+                ))
+                .collect(Collectors.toList());
     }
 
     public List<FormResponseDTO> findFormsByAdvisor(UUID advisorId) {

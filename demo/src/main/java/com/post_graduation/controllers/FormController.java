@@ -1,6 +1,8 @@
 package com.post_graduation.controllers;
 
 import com.post_graduation.dto.advisor.AdvisorHomeResponseDTO;
+import com.post_graduation.dto.advisor.AdvisorResponseDTO;
+import com.post_graduation.dto.form.FormEvalCCPDTO;
 import com.post_graduation.dto.form.FormEvalDTO;
 import com.post_graduation.dto.form.FormRequestDTO;
 import com.post_graduation.dto.form.FormResponseDTO;
@@ -10,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -30,9 +33,22 @@ public class FormController {
         formService.updateAdvisorNote(id, dto);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PutMapping("/{id}/ccp-opinion")
+    public ResponseEntity<Void> updateCcpOpinion(@PathVariable UUID id, @RequestBody FormEvalCCPDTO dto) {
+        formService.updateCcpOpinion(id, dto);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<FormResponseDTO> getForm(@PathVariable UUID id){
         FormResponseDTO formResponseDTO = this.formService.findFormById(id);
         return ResponseEntity.ok(formResponseDTO);
+    }
+
+    @GetMapping("/evaluated-forms")
+    public ResponseEntity<List<FormResponseDTO>> findAll() {
+        List<FormResponseDTO> forms = this.formService.findEvaluatedForms();
+        return ResponseEntity.ok().body(forms);
     }
 }

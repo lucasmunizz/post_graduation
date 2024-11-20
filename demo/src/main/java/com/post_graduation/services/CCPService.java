@@ -9,7 +9,9 @@ import com.post_graduation.dto.advisor.LoginAdvisorResponseDTO;
 import com.post_graduation.dto.auth.LoginRequestDTO;
 import com.post_graduation.dto.ccp.CCPLoginRequestDTO;
 import com.post_graduation.dto.ccp.CCPLoginResponseDTO;
+import com.post_graduation.repositories.AdvisorRepository;
 import com.post_graduation.repositories.CCPRepository;
+import com.post_graduation.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,12 +22,23 @@ import javax.security.sasl.AuthenticationException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CCPService {
 
     @Autowired
     private CCPRepository repository;
+
+    @Autowired
+    private StudentRepository studentRepository;
+
+    @Autowired
+    private AdvisorRepository advisorRepository;
+
+    @Autowired
+    private MailService mailService;
 
     @Value("${api.security.token.secret}")
     private String secretKey;
@@ -86,5 +99,25 @@ public class CCPService {
         var CCPLoginResponseDTO = new CCPLoginResponseDTO(token, roles);
 
         return CCPLoginResponseDTO;
+    }
+
+    public void generalOpinion(){
+
+        List<String> studentEmails = studentRepository.findAll().stream()
+                .map(student -> student.getEmail())
+                .collect(Collectors.toList());
+
+        // Buscar todos os e-mails de orientadores
+        List<String> advisorEmails = advisorRepository.findAll().stream()
+                .map(advisor -> advisor.getEmail())
+                .collect(Collectors.toList());
+
+        // Combinar todos os e-mails
+        List<String> allEmails = studentEmails;
+        allEmails.addAll(advisorEmails);
+        allEmails.add("posgraduacaosistema@gmail.com");
+
+        this.mailService.sendEmailWithManyRecipients(allEmails, "Parecer CCP", "Caros alunos e orientadores, foi finalizada a avaliação de todos os relatórios, para verificar, acesse o sistema");
+
     }
 }

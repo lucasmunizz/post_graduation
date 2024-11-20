@@ -11,4 +11,6 @@ public interface FormRepository extends JpaRepository<Form, UUID> {
     List<Form> findByAdvisor_id(UUID advisorId);
 
     List<Form> findByStudent_id(UUID studentId);
+
+    List<Form> findByAdvisorNoteIsNotNull();
 }
