@@ -38,7 +38,7 @@ async function fetchAndDisplayReports() {
                 <td>${report.studentName}</td>
                 <td>${report.uspNumber}</td>
                 <td>${report.version}</td>
-                <td>${report.advisorNote || N/A}</td>
+                <td>${report.advisorNote || "N/A"}</td>
             `;
 
             const actionCell = document.createElement("td");

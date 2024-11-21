@@ -61,8 +61,7 @@ function renderReports(reports) {
         }
 
         actionButton.onclick = () => {
-            alert(`Reenviando relatório versão ${report.version}`);
-            // Adicione aqui a lógica de reenvio
+            window.location.href = `./update-report/update-report.html?formId=${report.formId}`;
         };
 
         actionCell.appendChild(actionButton);

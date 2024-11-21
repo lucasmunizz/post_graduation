@@ -36,7 +36,7 @@ table th, table td {
 
 .create-btn {
     margin-top: 10px;
-    background-color: #4CAF50;
+    background-color: #2e6b8d;
     color: white;
     padding: 10px;
     border: none;
@@ -45,7 +45,7 @@ table th, table td {
 }
 
 .create-btn:hover {
-    background-color: #45a049;
+    background-color: #2e6b8d;
 }
 
 .modal {
@@ -96,7 +96,7 @@ table th, table td {
 .modal-content .submit-btn {
     width: 100%;
     padding: 10px;
-    background-color: #4CAF50; /* Ajuste a cor conforme necessário */
+    background-color: #2e6b8d; /* Ajuste a cor conforme necessário */
     color: white;
     border: none;
     border-radius: 4px;
@@ -106,7 +106,7 @@ table th, table td {
 }
 
 .modal-content .submit-btn:hover {
-    background-color: #45a049;
+    background-color: #2e6b8d;
 }
 
 .close {
@@ -123,7 +123,7 @@ table th, table td {
 }
 
 .submit-btn {
-    background-color: #4CAF50;
+    background-color: #2e6b8d;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -133,12 +133,12 @@ table th, table td {
 }
 
 .submit-btn:hover {
-    background-color: #45a049;
+    background-color: #2e6b8d;
 }
 
 /* Estilo padrão do botão */
 #createPeriodBtn {
-    background-color: #4CAF50; /* Verde, por exemplo */
+    background-color: #2e6b8d; /* Verde, por exemplo */
     color: white;
     border: none;
     padding: 10px 20px;
@@ -156,7 +156,7 @@ table th, table td {
     position: absolute;
     top: 20px;
     left: 20px;
-    background-color: #4CAF50;
+    background-color: #2e6b8d;
     color: white;
     padding: 8px 12px;
     border: none;
@@ -167,5 +167,5 @@ table th, table td {
 }
 
 .back-button:hover {
-    background-color: #45a049;
+    background-color: #2e6b8d;
 }
