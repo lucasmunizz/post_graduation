@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação do Relatório</title>
+    <link rel="stylesheet" href="report-evaluation.css">
+</head>
+<body>
+    <button class="back-button" onclick="window.history.back();">← Voltar</button>
+    <h1>Avaliação do Relatório</h1>
+    
+    <div class="table-container">
+        <table id="evaluationTable">
+            <tbody>
+                <!-- As linhas da tabela serão preenchidas pelo JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <p class="note-text">
+        Forma de interpretar o quadro: <br> <br>
+       - Se o aluno satisfizer todos os critérios mínimos do item “adequado“, então o esperado é que seu desempenho seja classificado como “adequado“, a não ser que haja alguma motivação/justificativa embasada para o contrário. <br> <br>
+       - Se o aluno satisfizer pelo menos um dos critérios do item “insatisfatório“, então o esperado é que seu desempenho seja classificado como “insatisfatório“, a não ser que haja alguma motivação/justificativa embasada para o contrário. <br> <br>
+       - Se o aluno não atingir os critérios mínimos para ficar com seu desempenho “adequado” mas também não satisfizer algum critério para ficar com seu desempenho “insatisfatório“, então o esperado é que seu desempenho seja classificado como “adequado com ressalvas“; ou seja, considerado entre “adequado” e “insatisfatório“. <br> <br>
+       - O quadro oferece uma orientação sobre como avaliar o desempenho dos alunos de forma mais objetiva, mas os orientadores que conhecem os trabalhos de seus alunos podem adotar outros critérios e justificar em seus pareceres a avaliação de desempenho atribuída a seus alunos.
+    </p>
+    
+    <h2>Avaliação</h2>
+    <form id="evaluationForm">
+
+        <label>
+            <input type="radio" name="ccpOpinion" value="Adequado" required>
+            Adequado
+        </label>
+        <label>
+            <input type="radio" name="ccpOpinion" value="Adequado com ressalvas">
+            Adequado com ressalvas
+        </label>
+        <label>
+            <input type="radio" name="ccpOpinion" value="Insatisfatório">
+            Insatisfatório
+        </label>
+        
+    
+        
+        <button type="submit">Avaliar</button>
+    </form>
+
+    <script src="report-evaluation.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Relatórios</title>
+    <link rel="stylesheet" href="report-management.css">
+</head>
+<body>
+    <button class="back-button" onclick="window.history.back();">← Voltar</button>
+    <button class="home-button" onclick="window.location.href = '../home/ccp-home.html';">Home</button>
+    <button class="opinion-button" id="opinion-button" disabled>Dar o parecer</button>
+    <h1>Gerenciamento de Relatórios</h1>
+    <div class="table-container">
+        <table id="reportsTable">
+            <thead>
+                <tr>
+                    <th>Nome do Aluno</th>
+                    <th>Número USP</th>
+                    <th>Versão do Relatório</th>
+                    <th>Email do Orientador</th>
+                    <th>Nota Orientador</th>
+                    <th>Nota CCP</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Linhas serão preenchidas pelo JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="report-management.js"></script>
+</body>
+</html>

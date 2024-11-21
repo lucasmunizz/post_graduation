@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envio de Relatório</title>
+    <link rel="stylesheet" href="../create-report/create-report.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Reenvio de Relatório</h1>
+        <form id="reportForm">
+            <div class="form-row">
+                <label for="studentEmail">E-mail:</label>
+                <input type="email" id="studentEmail" name="studentEmail">
+            </div>
+            <div class="form-row">
+                <label for="studentName">Nome do(a) aluno(a):</label>
+                <input type="text" id="studentName" name="studentName" readonly>
+            </div>
+            <div class="form-row">
+                <label for="advisorEmail">Email do orientador:</label>
+                <input type="email" id="advisorEmail" name="advisorEmail">
+            </div>
+            <div class="form-row">
+                <label for="uspNumber">Número USP:</label>
+                <input type="text" id="uspNumber" name="uspNumber" readonly>
+            </div>
+            <div class="form-row">
+                <label for="lattesLink">Link para o Lattes:</label>
+                <input type="url" id="lattesLink" name="lattesLink">
+            </div>
+            <div class="form-row">
+                <label for="lattesUpdateDate">Data da última atualização do Lattes:</label>
+                <input type="date" id="lattesUpdateDate" name="lattesUpdateDate" required>
+            </div>
+            <div class="form-row">
+                <label for="discipline">Curso:</label>
+                <select id="discipline" name="discipline" readonly>
+                    <option value="Mestrado">Mestrado</option>
+                    <option value="Doutorado">Doutorado</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="entryDate">Data de ingresso como aluno(a) regular:</label>
+                <input type="date" id="entryDate" name="entryDate" required>
+            </div>
+            <div class="form-row">
+                <label for="lastReportResult">Qual foi o resultado da avaliação do último relatório?</label>
+                <select id="lastReportResult" name="lastReportResult" required>
+                    <option value="Aprovado">Aprovado</option>
+                    <option value="Aprovado com ressalvas">Aprovado com ressalvas</option>
+                    <option value="Insatisfatório">Insatisfatório</option>
+                    <option value="Não se Aplica">Não se Aplica</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="approvalsFromTheBegginigOfTheCourse">Aprovações em disciplinas desde o início do curso:</label>
+                <select id="approvalsFromTheBegginigOfTheCourse" name="approvalsFromTheBegginigOfTheCourse" required>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4 ou mais">4 ou mais</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="repprovalsOnSecondSemester">Reprovações no 2º semestre de 2023:</label>
+                <select id="repprovalsOnSecondSemester" name="repprovalsOnSecondSemester" required>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4 ou mais">4 ou mais</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="repprovalsFromTheBegginigOfTheCourse">Reprovações em disciplinas desde o início do curso:</label>
+                <select id="repprovalsFromTheBegginigOfTheCourse" name="repprovalsFromTheBegginigOfTheCourse" required>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4 ou mais">4 ou mais</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="proficiencyExam">Já realizou exame de proficiência em idiomas?</label>
+                <select id="proficiencyExam" name="proficiencyExam" required>
+                    <option value="Sim, fui aprovado.">Sim, fui aprovado.</option>
+                    <option value="Sim, fui reprovado.">Sim, fui reprovado.</option>
+                    <option value="Não">Não</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="qualifyingExam">Já realizou exame de qualificação?</label>
+                <select id="qualifyingExam" name="qualifyingExam" required>
+                    <option value="Sim, fui aprovado.">Sim, fui aprovado.</option>
+                    <option value="Sim, fui reprovado.">Sim, fui reprovado.</option>
+                    <option value="Não">Não</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="maximumRegistrationDeadline">Se você ainda não qualificou, qual é o seu prazo máximo para inscrição no
+                    exame de qualificação?</label>
+                <input type="date" id="maximumRegistrationDeadline" name="maximumRegistrationDeadline">
+            </div>
+            <div class="form-row">
+                <label for="deadlineDissertation">Qual é seu Prazo máximo para depósito da dissertação:</label>
+                <input type="date" id="deadlineDissertation" name="deadlineDissertation" required>
+            </div>
+            <div class="form-row">
+                <label for="articlesWritingPhase">Artigos em fase de escrita:</label>
+                <select id="articlesWritingPhase" name="articlesWritingPhase" required>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3 ou mais">3 ou mais</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="articlesInEvaluation">Artigos submetidos e em período de avaliação</label>
+                <select id="articlesInEvaluation" name="articlesInEvaluation" required>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3 ou mais">3 ou mais</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="acceptedArticles">Artigos aceitos ou publicados</label>
+                <select id="acceptedArticles" name="acceptedArticles" required>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3 ou mais">3 ou mais</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="activities">Relate aqui as atividades ou eventos acadêmicos que você participou:</label>
+                <textarea id="activities" name="activities" rows="3"></textarea>
+            </div>
+            <div class="form-row">
+                <label for="researchActivitiesResume">Apresente um resumo das suas atividades de pesquisa até o momento e das
+                    atividades que ainda precisam ser desenvolvidas até a conclusão do seu
+                    curso.</label>
+                <textarea id="researchActivitiesResume" name="researchActivitiesResume" rows="3" required></textarea>
+            </div>
+            <div class="form-row">
+                <label for="additionalComments">Você tem algo adicional a declarar para a CCP - PPgSI que considera importante
+                    para sua avaliação?</label>
+                <textarea id="additionalComments" name="additionalComments" rows="3"></textarea>
+            </div>
+            <div class="form-row">
+                <label for="hasDifficulty">Está enfrentando alguma dificuldade que precisa de apoio da coordenação do
+                    curso?</label>
+                <select id="hasDifficulty" name="hasDifficulty" required>
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <button type="submit">Enviar Relatório</button>
+            </div>
+        </form>
+    </div>
+    <script src="update-report.js"></script>
+</body>
+</html>
