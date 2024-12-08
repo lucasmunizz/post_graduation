@@ -62,7 +62,7 @@ form button {
     width: 100%;
     padding: 0.75em;
     border: none;
-    background-color: #003366;
+    background-color: #2e6b8d;
     color: #fff;
     font-size: 1em;
     border-radius: 4px;
@@ -71,7 +71,7 @@ form button {
 }
 
 form button:hover {
-    background-color: #004080;
+    background-color: #2e6b8d;
 }
 
 #statusMessage {
@@ -83,7 +83,7 @@ form button:hover {
 footer {
     text-align: center;
     padding: 1em 0;
-    background-color: #003366;
+    background-color: #2e6b8d;
     color: #fff;
     font-size: 0.9em;
 }

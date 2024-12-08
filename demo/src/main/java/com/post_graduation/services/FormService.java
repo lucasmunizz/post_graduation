@@ -37,10 +37,10 @@ public class FormService {
     @Transactional
     public Form create(FormRequestDTO dto) {
         // Busca o advisor pelo ID fornecido
-        Advisor advisor = advisorRepository.findByEmail(dto.advisorEmail())
+        Advisor advisor = this.advisorRepository.findByEmail(dto.advisorEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Advisor not found"));
 
-        Student student = studentRepository.findByUspNumber(dto.uspNumber())
+        Student student = this.studentRepository.findByUspNumber(dto.uspNumber())
                 .orElseThrow(() -> new IllegalArgumentException("Student not found"));
 
 
